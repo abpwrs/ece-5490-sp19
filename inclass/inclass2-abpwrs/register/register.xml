@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+  <category>Registration</category>
+  <title>3D Translation Registration (MIATT)</title>
+  <description>Register a three-dimensional volume to a reference volume </description>
+  <documentation-url></documentation-url>
+  <license></license>
+  <contributor>Hans J. Johnson (hans-johnson -at- uiowa.edu</contributor>
+  <version>0.0.2</version>
+
+  <parameters advanced="false">
+    <label>Input Images</label>
+    <image>
+      <name>fixedImageFile</name>
+      <longflag>fixedImageFile</longflag>
+      <label>Fixed Image Volume</label>
+      <description>Input fixed image (the moving image will be transformed into this image space).</description>
+      <channel>input</channel>
+      <default></default>
+    </image>
+    <image>
+      <name>movingImageFile</name>
+      <longflag>movingImageFile</longflag>
+      <label>Moving Image Volume</label>
+      <description>Input moving image (this image will be transformed into the fixed image space).</description>
+      <default></default>
+      <channel>input</channel>
+    </image>
+  </parameters>
+  <parameters advanced="false">
+    <label>Output Settings (At least one output must be specified)</label>
+    <image>
+      <name>outputImageFile</name>
+      <longflag>outputImageFile</longflag>
+      <label>Output Image Volume</label>
+      <description>(optional) Output image: the moving image warped to the fixed image space.</description>
+      <channel>output</channel>
+    </image>
+    <image>
+      <name>differenceImageBeforeFile</name>
+      <longflag>differenceImageBeforeFile</longflag>
+      <label>Difference Image Before</label>
+      <description>(optional) Output difference image: the difference of moving image warped to the fixed image space and the fixed image.</description>
+      <channel>output</channel>
+    </image>
+    <image>
+      <name>differenceImageAfterFile</name>
+      <longflag>differenceImageAfterFile</longflag>
+      <label>Difference Image After</label>
+      <description>(optional) Output difference image: the difference of moving image and the fixed image.</description>
+      <channel>output</channel>
+    </image>
+  </parameters>
+</executable>
