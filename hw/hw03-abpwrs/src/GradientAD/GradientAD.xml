@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+    <category>MIATT.HW03.abpwrs</category>
+    <title>GradientAD</title>
+    <description>
+        Computes the Gradient Anisotropic Diffusion
+    </description>
+    <version>1.0</version>
+    <documentation-url></documentation-url>
+    <license></license>
+    <contributor>Alexander B. Powers</contributor>
+    <parameters>
+        <label>
+            GradientAD Parameters
+        </label>
+        <description>
+            Parameters for Gradient Anisotropic Diffusion
+        </description>
+
+        <double>
+            <name>timeStep</name>
+            <longflag>timeStep</longflag>
+            <description>Time Step</description>
+            <label>Time Step</label>
+            <default>0.1</default>
+            <constraints>
+                <minimum>.001</minimum>
+                <maximum>5</maximum>
+                <step>.001</step>
+            </constraints>
+        </double>
+
+        <double>
+            <name>conductance</name>
+            <longflag>conductance</longflag>
+            <description>Conductance</description>
+            <label>Conductance</label>
+            <default>2.0</default>
+            <constraints>
+                <minimum>.1</minimum>
+                <maximum>30.0</maximum>
+                <step>.1</step>
+            </constraints>
+        </double>
+
+        <integer>
+            <name>numberOfIterations</name>
+            <longflag>numberOfIterations</longflag>
+            <description>Number of iterations</description>
+            <label>Iterations</label>
+            <default>5</default>
+            <constraints>
+                <minimum>1</minimum>
+                <maximum>50</maximum>
+                <step>1</step>
+            </constraints>
+        </integer>
+
+    </parameters>
+
+    <parameters>
+        <label>IO</label>
+        <description>Input/Output parameters</description>
+        <image>
+            <name>inputVolume</name>
+            <label>Input Volume</label>
+            <channel>input</channel>
+            <index>0</index>
+            <description>Input volume to be filtered</description>
+        </image>
+        <image>
+            <name>outputVolume</name>
+            <label>Output Volume</label>
+            <channel>output</channel>
+            <index>1</index>
+            <description>Output filtered</description>
+        </image>
+    </parameters>
+
+</executable>

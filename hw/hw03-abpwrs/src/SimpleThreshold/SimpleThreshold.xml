@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+    <category>MIATT.HW03.abpwrs</category>
+    <title>SimpleThreshold</title>
+    <description>
+        Thresholds values in between the threshold value to the "Inside Value" and values outside of the threshold range to "Outside Value"
+    </description>
+    <version>1</version>
+    <documentation-url></documentation-url>
+    <license></license>
+    <contributor>Alexander B. Powers</contributor>
+
+    <parameters>
+        <label>
+            Threshold Parameters
+        </label>
+        <description>
+            Parameters for Binary Thresholding
+        </description>
+
+        <integer>
+            <name>lowThreshold</name>
+            <longflag>lowThreshold</longflag>
+            <description>Lower Threshold</description>
+            <label>Low Threshold</label>
+            <default>50</default>
+            <constraints>
+                <minimum>0</minimum>
+                <maximum>255</maximum>
+                <step>1</step>
+            </constraints>
+        </integer>
+
+        <integer>
+            <name>highThreshold</name>
+            <longflag>highThreshold</longflag>
+            <description>Higher Threshold</description>
+            <label>High Threshold</label>
+            <default>100</default>
+            <constraints>
+                <minimum>0</minimum>
+                <maximum>255</maximum>
+                <step>1</step>
+            </constraints>
+        </integer>
+
+        <integer>
+            <name>outsideValue</name>
+            <longflag>outsideValue</longflag>
+            <description>Outside Value</description>
+            <label>Outside Value</label>
+            <default>150</default>
+            <constraints>
+                <minimum>0</minimum>
+                <maximum>255</maximum>
+                <step>1</step>
+            </constraints>
+        </integer>
+
+        <integer>
+            <name>insideValue</name>
+            <longflag>insideValue</longflag>
+            <description>Inside Value</description>
+            <label>Inside Value</label>
+            <default>200</default>
+            <constraints>
+                <minimum>0</minimum>
+                <maximum>255</maximum>
+                <step>1</step>
+            </constraints>
+        </integer>
+    </parameters>
+
+    <parameters>
+        <label>IO</label>
+        <description>Input/Output parameters</description>
+        <image>
+            <name>inputVolume</name>
+            <label>Input Volume</label>
+            <channel>input</channel>
+            <index>0</index>
+            <description>Input volume to be filtered</description>
+        </image>
+        <image>
+            <name>outputVolume</name>
+            <label>Output Volume</label>
+            <channel>output</channel>
+            <index>1</index>
+            <description>Output filtered</description>
+        </image>
+    </parameters>
+
+</executable>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+    <category>MIATT.HW03.abpwrs</category>
+    <title>GaussianLPF</title>
+    <description>
+        Gaussian Blur
+    </description>
+    <version>1.0</version>
+    <documentation-url></documentation-url>
+    <license></license>
+    <contributor>Alexander B. Powers</contributor>
+
+    <parameters>
+        <label>
+            Gaussian Low Pass Filter Parameters
+        </label>
+        <description>
+            Parameters for Gaussian Low Pass Filter
+        </description>
+
+        <double>
+            <name>sigma</name>
+            <longflag>sigma</longflag>
+            <description>Sigma Value</description>
+            <label>Sigma</label>
+            <default>2</default>
+            <constraints>
+                <minimum>.1</minimum>
+                <maximum>50</maximum>
+                <step>.1</step>
+            </constraints>
+        </double>
+    </parameters>
+
+    <parameters>
+        <label>IO</label>
+        <description>Input/Output parameters</description>
+        <image>
+            <name>inputVolume</name>
+            <label>Input Volume</label>
+            <channel>input</channel>
+            <index>0</index>
+            <description>Input volume to be filtered</description>
+        </image>
+        <image>
+            <name>outputVolume</name>
+            <label>Output Volume</label>
+            <channel>output</channel>
+            <index>1</index>
+            <description>Output filtered</description>
+        </image>
+    </parameters>
+
+</executable>
