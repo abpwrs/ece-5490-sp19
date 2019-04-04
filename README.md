@@ -1,2 +1,2 @@
-# miatt-ece-5490
-Medical Image Analysis Tools and Techniques
+# Medical Image Analysis Tools and Techniques (MIATT)
+ECE:5490 Spring 2019
