@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+  <category>
+   MIATT.MIDTERMEXAM.HAWKID
+  </category>
+  <title>
+  MIATT Edge Detection Filters
+  </title>
+  <description>
+    A Slicer Module to implement three different edge producing filters.
+  </description>
+  <version>1.0</version>
+  <contributor> WHOAREYOU </contributor>
+  <acknowledgements>This command module was derived from https://itk.org/ITKExamples</acknowledgements>
+  <parameters>
+    <label>Input/Output Volumes</label>
+    <description>Selection of Input and Output volumes</description>
+    <image>
+      <name>inputVolume</name>
+      <label>Input Volume</label>
+      <channel>input</channel>
+      <longflag>inputVolume</longflag>
+      <default>/nfsscratch/opt/ece5490/data/subj1_T1_raw.nii.gz</default>
+    </image>
+    <image>
+      <name>outputVolume</name>
+      <label>Output Volume</label>
+      <channel>output</channel>
+      <longflag>outputVolume</longflag>
+      <default>/tmp/out.nii.gz</default>
+    </image>
+  </parameters>
+  <parameters>
+    <label>Select Edge Detectors</label>
+    <description>Parameters for the filter </description>
+    <string-enumeration>
+      <name>filterKind</name>
+      <label>Edge Filter Kind</label>
+      <channel>input</channel>
+      <longflag>filterKind</longflag>
+      <element>Sobel</element>
+      <element>LoG</element>
+      <element>GM</element>
+    </string-enumeration>
+  </parameters>
+</executable>
