@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<executable>
+  <category>
+   MIATT.IPD
+  </category>
+  <title>
+  MIDTERM
+  </title>
+  <description>
+     Compute interpupilary distance (i.e. the distance between two eyes)
+  </description>
+  <version>1.0</version>
+  <documentation-url/>
+  <license/>
+  <contributor> Alexander Powers </contributor>
+  <acknowledgements>This command module was derived from http://www.itk.org/Wiki/ITK/Examples
+  </acknowledgements>
+  <parameters>
+    <label>Input/Output Volumes</label>
+    <description>Selection of Input and Output volumes</description>
+    <image>
+      <name>inputVolume</name>
+      <label>Input Volume</label>
+      <longflag>inputVolume</longflag>
+      <channel>input</channel>
+      <default>/nfsscratch/opt/ece5490/data/Eyes.nrrd</default>
+    </image>
+  </parameters>
+</executable>

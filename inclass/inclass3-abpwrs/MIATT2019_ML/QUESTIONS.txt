@@ -1,0 +1,10 @@
+expriemental
+E1. Are all of the probability masks the same size? and are they all the same as the t1/t2?
+
+
+
+leading
+l1. reccomendations on dealing with data not fitting in RAM
+l2. do we need to hand missing data at runtime?
+
+

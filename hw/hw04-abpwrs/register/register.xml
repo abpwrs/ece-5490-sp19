@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <executable>
   <category>Registration</category>
-  <title>3D Translation Registration (MIATT)</title>
+  <title>3D Translation Registration (MIATT) (abpwrs)</title>
   <description>Register a three-dimensional volume to a reference volume </description>
   <documentation-url></documentation-url>
   <license></license>

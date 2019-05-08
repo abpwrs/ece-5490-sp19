@@ -20,25 +20,15 @@ The two scans resulting from this experiment are listed below:
 Compute the physical dimensions of the cube occupied by each image.
 
 
-> TODO: Place your answers here
-
 > fixed_t1.nii has physical dimensions ( 240mm x 186mm  x 240mm)
 
 > moving_rot_newscanner_t1.nii has physical dimensions ( 240mm x 186mm  x 240mm)
 
 Compute the value of the center voxel in the image for both the moving and the fixed image:
 
-
-> TODO: Place your answers here:
-
 > fixed_t1.nii center voxel physical location:                   (120.0, 64.5, 93.0)mm
 
 > moving_rot_newscanner_t1.nii center voxel physical location:   (137.7, -202.3, 90.6)mm
-
-HINT: `GetSize()[0]/2;`
-HINT: Index types and Size types are different! `ImageType::SizeType` != `ImageType::IndexType`
-HINT: Filters are not run until the "Update()" member function is called.  
-Before Update() is called, the image objects are often default values with no pixels allocated.
 
 ### Part 2
 
@@ -47,95 +37,78 @@ Develop a program for registering the 3D images.
 The command line for running the registration should be runnable similar to the following:
 
 ```bash
-register_hawkid \
+register_abpwrs \
    --fixedImageFile   /nfsscratch/opt/ece5490/data/fixed_t1.nii.gz \
    --movingImageFile  /nfsscratch/opt/ece5490/data/moving_rot_newscanner_t1.nii.gz \
    --outputImageFile  /tmp/deformed_moving.nii.gz \
    --differenceImageAfterFile /tmp/diff_after.nii.gz
 ```
 
-
-HINT: `itkEuler3DTransform` The serialization of the optimizable parameters is an array of 6 elements. 
-The first 3 represents three euler angle of rotation respectively about the X, Y and Z axis.
-The last 3 parameters defines the translation in each dimension.
-
-
-HINT: Optimizer state parameters (500, .1, 0.01, 0.5 ) that worked for me for SetLearningRate, SetMinimumStepLength, SetRelaxationFactor,
-SetNumberOfIterations. (not in this order, you need to figure out the ordering.) If you have a different solution, you may need different values.
-
-
-HINT: The parameter space to be optimized over is NOT isotropic!!! Changes of 1.0 in 𝞀,Φ,θ have drastically different effects
-on the metric than do changes of 1.0 in translations.  ScalesType. This array defines scale to be applied
- to parameters before being evaluated in the cost function. This allows to map to a more convenient space.
- In particular this is used to normalize parameter spaces in which some parameters have a different dynamic range.
-
 ```
   OptimizerType::ScalesType optimizerScales(initialTransform->GetNumberOfParameters());
-  const double translationScale = SOME_SCALE_FACTOR;
+  const double translationScale = 1.0/1000.0;
   optimizerScales.Fill(1.0);
-  optimizerScales[XXX]  = translationScale;
+  optimizerScales[3]  = translationScale;
+  optimizerScales[4]  = translationScale;
+  optimizerScales[5]  = translationScale;
 ```
 
-> TODO: What translationScale value did you use? = SOME_SCALE_FACTOR
-> TODO: Why did you choose this value?
-
-HINT: Develop a multi-resolution registration approach.  
-1/8 scale, 1/4 scale, full scale, (Smooth by alot, a little, nosmoothing).  
-You may find your programs from HW2 useful in understanding the smoothing.
-
-HINT: Set the center of the `movingInitialTransform->SetCenter(  CNTR  );`
+#### Reason for scaling factor choice: 
+I used a translation scale of 1/1000 because we have already done most of the work involved for translation with the fixed parameters that center the two images. Thus the changes to these parameters by the optimizer should be much smaller.
 
 ### Part 3
 
 Make a plot of the metric values at each iteration vs interation for all the iterations in the multi-resolution run.
 You will need to capture those values somehow from the registration process.
-HINT:
-```cxx
-  using ObserverType = CommandIterationUpdate< OptimizerType  >;
-  ObserverType::Pointer observer = ObserverType::New();
-  MYOBJECT_NAME->AddObserver(itk::IterationEvent(),observer);
-```
 
 
-> TODO: Insert plot here.
+
+![loss image](https://github.com/UIOWAECE5490SP19/hw04-abpwrs/blob/master/MIAT-HW4-Loss.png)
 
 
-> TODO: Describe why there are discontinuities in the metric plot when the resolution value chagnes:
-HERE
-
+#### Reason for Discontinuity:
+The resolution of the image increases as a step function once the previous resolutions optimization has converged.  
+Because the number of pixels being evaluated by the metric increases suddenly, so does the loss.
 
 
 ### Part 4
 In this section we will examine the importance of transform fixed parameters.
 
 #### 4.1
-> TODO: Fill out the estimated euler transform parameter values from the registration, (it should have fixed parameters set).
 
-```asm
-Result = 
- rho = ???? degrees
- phi = ???? degrees
- theta = ????? degrees
- Translation X = ?????
- Translation Y = ?????
- Translation Z = ?????
- Metric value  = ?????
+```txt
+Result: 
+ versor X      = -0.0378825
+ versor Y      = 0.0418052
+ versor Z      = 0.044935
+ Translation X = 17.577
+ Translation Y = -266.997
+ Translation Z = -2.34762
+ Iterations    = 3
+ Metric value  = 0.022082
 ```  
 
 #### 4.2
-Comment out the line in your code that set the fixed parameters for the Euler transform, re-run the same experiment.
+Comment out the line in your code that set the fixed parameters for the Versor3D transform, re-run the same experiment.
 
-> TODO: Fill out the estimated euler transform parameter values from the registration, without setting the transform fixed parameters.
-
-```asm
+```txt
 Result = 
- rho = ???? degrees
- phi = ???? degrees
- theta = ????? degrees
- Translation X = ?????
- Translation Y = ?????
- Translation Z = ?????
- Metric value  = ?????
+ versor X      = 0
+ versor Y      = 0
+ versor Z      = 0
+ Translation X = 0
+ Translation Y = 0
+ Translation Z = 0
+ Iterations    = 1
+ Metric value  = 1.79769e+308
 ```  
 
-> TODO: Describe why the results are different.
+#### Explanation of Difference:
+The  reason that 4.2 does not work, is because the images are in different physical spaces. 
+The fixed parameters of the transform roughly align the images in physical space.     
+It is important for the two images to occupy the same physical space, 
+because if they don't, the mean squared error will always be the same(square sum of all intensity values), 
+and the gradient will not be meaningful.
+
+### Difference Image:
+![difference-image](https://github.com/UIOWAECE5490SP19/hw04-abpwrs/blob/master/difference-image.png)
